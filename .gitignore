@@ -1,0 +1,29 @@
+# Node modules
+node_modules/
+
+# Compiled JS output
+dist/
+build/
+
+# TypeScript build info
+*.tsbuildinfo
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# Coverage
+coverage/
