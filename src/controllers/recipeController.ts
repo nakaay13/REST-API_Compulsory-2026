@@ -15,7 +15,7 @@ export async function createRecipe(req: Request, res: Response): Promise<void> {
 
     } catch (error) {
 
-        res.status(500).json({ error: "Failed to create recipe" });
+        res.status(500).json({ error: "Failed to create recipe: " + error });
 
     } finally {
 
