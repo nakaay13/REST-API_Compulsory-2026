@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import { createRecipe } from "./controllers/recipeController";
+import { createRecipe, getAllRecipes } from "./controllers/recipeController";
 
 const router: Router = Router();
 
@@ -8,5 +8,7 @@ router.get('/', (req: Request, res: Response) => {
 });
 
 router.post('/recipes', createRecipe);
+
+router.get('/recipes', getAllRecipes);
 
 export default router;

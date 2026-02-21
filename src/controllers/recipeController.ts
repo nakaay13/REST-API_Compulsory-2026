@@ -23,3 +23,21 @@ export async function createRecipe(req: Request, res: Response): Promise<void> {
         
     }
 }
+
+export async function getAllRecipes(req: Request, res: Response){
+    try {
+
+        await connect();
+        const recipes = await RecipeModel.find({});
+        res.status(200).json(recipes);
+
+    } catch (error) {
+
+        res.status(500).json({ error: "Failed to retrieve recipes: " + error });
+
+    } finally {
+
+        await disconnect();
+
+    }
+}
