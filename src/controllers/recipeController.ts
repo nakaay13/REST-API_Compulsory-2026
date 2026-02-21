@@ -41,3 +41,25 @@ export async function getAllRecipes(req: Request, res: Response){
 
     }
 }
+
+export async function getRecipeById(req: Request, res: Response){
+    try {
+
+        await connect();
+        const recipe = await RecipeModel.findById({ _id: req.params.id });
+        if (!recipe) {
+            res.status(404).json({ error: "Recipe not found" });
+            return;
+        }
+        res.status(200).json(recipe);
+
+    } catch (error) {
+
+        res.status(500).json({ error: "Failed to retrieve recipe: " + error });
+
+    } finally {
+
+        await disconnect();
+
+    }
+}
