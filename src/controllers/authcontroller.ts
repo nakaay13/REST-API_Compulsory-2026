@@ -52,7 +52,7 @@ export async function registerUser(req: Request, res: Response) {
 
 export function validateUserRegistrationInfo(data: User): ValidationResult {
     const schema = Joi.object({
-        username: Joi.string().min(3).max(100).required(),
+        name: Joi.string().min(3).max(100).required(),
         email: Joi.string().email().required(),
         password: Joi.string().min(6).required()
     });
