@@ -1,5 +1,5 @@
 import e, { Request, Response } from "express";
-import { RecipeModel } from "../modules/recipeModel";
+import { RecipeModel } from "../models/recipeModel";
 import { connect, disconnect } from "../repository/database";
 
 export async function createRecipe(req: Request, res: Response): Promise<void> {
