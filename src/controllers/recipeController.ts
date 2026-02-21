@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import e, { Request, Response } from "express";
 import { RecipeModel } from "../modules/recipeModel";
 import { connect, disconnect } from "../repository/database";
 
@@ -56,6 +56,35 @@ export async function getRecipeById(req: Request, res: Response){
     } catch (error) {
 
         res.status(500).json({ error: "Failed to retrieve recipe: " + error });
+
+    } finally {
+
+        await disconnect();
+
+    }
+}
+
+
+export async function updateRecipeById(req: Request, res: Response){
+
+    const id = req.params.id;
+    const updateData = req.body;
+
+    try {
+
+        await connect();
+        const recipe = await RecipeModel.findByIdAndUpdate(id, updateData);
+        if (!recipe) {
+            res.status(404).json({ error: "Recipe not found" });
+            return;
+        } else {
+            res.status(200).json({ message: "Recipe updated successfully" });
+        }
+        
+
+    } catch (error) {
+
+        res.status(500).json({ error: "Failed to update recipe: " + error });
 
     } finally {
 
