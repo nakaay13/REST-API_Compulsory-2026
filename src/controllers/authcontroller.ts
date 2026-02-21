@@ -67,3 +67,49 @@ export function validateUserLoginInfo(data: User): ValidationResult {
     return schema.validate(data);
 }
 
+export async function loginUser(req: Request, res: Response) {
+    try {
+
+        const { error } = validateUserLoginInfo(req.body);
+        if (error) {
+            return res.status(400).json({ message: error.details[0].message });
+        }
+
+        await connect();
+        const user: User | null = await UserModel.findOne({ email: req.body.email });
+        
+        if (!user) {
+
+        
+            return res.status(400).json({ message: "Invalid email or password" });
+
+        } else {
+
+            const validPassword:boolean = await bcrypt.compare(req.body.password, user.password);
+            if (!validPassword) {
+                return res.status(400).json({ message: "Invalid email or password" });
+            }
+
+            const userId = user.id;
+            const token = jwt.sign(
+                {
+                    name: user.name,
+                    email: user.email,
+                    id: userId
+                },
+                process.env.TOKEN_SECRET as string,
+                { expiresIn: '2h' }
+                
+            );
+            res.status(200).header("auth-token", token).json({ error: null, data: {userId, token} });
+        }
+
+
+    } catch (error) {
+
+        res.status(500).json({ message: "Failed to login user: " + error });
+
+    } finally { 
+        await disconnect();
+    }
+}
