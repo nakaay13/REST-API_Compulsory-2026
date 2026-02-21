@@ -15,14 +15,20 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
+     "clean": "rimraf dist",
+  "build": "npm run clean && tsc",
     "start-dev": "npx nodemon",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-    "nodemonConfig": {
+  "nodemonConfig": {
     "verbose": false,
-    "watch": ["src"],
+    "watch": [
+      "src"
+    ],
     "ext": "js,ts",
-    "ignore": ["node_modules"],
+    "ignore": [
+      "node_modules"
+    ],
     "exec": "npx ts-node ./src/index.ts"
   },
   "dependencies": {
@@ -38,6 +44,7 @@
     "@types/express": "^5.0.6",
     "@types/joi": "^17.2.2",
     "@types/node": "^25.3.0",
+    "rimraf": "^6.1.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   }
