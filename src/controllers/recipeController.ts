@@ -92,3 +92,30 @@ export async function updateRecipeById(req: Request, res: Response){
 
     }
 }
+
+export async function deleteRecipeById(req: Request, res: Response){
+
+    const id = req.params.id;
+
+    try {
+
+        await connect();
+        const recipe = await RecipeModel.findByIdAndDelete(id);
+        if (!recipe) {
+            res.status(404).json({ error: "Recipe not found" });
+            return;
+        } else {
+            res.status(200).json({ message: "Recipe deleted successfully" });
+        }
+        
+
+    } catch (error) {
+
+        res.status(500).json({ error: "Failed to delete recipe: " + error });
+
+    } finally {
+
+        await disconnect();
+
+    }
+}
