@@ -113,3 +113,24 @@ export async function loginUser(req: Request, res: Response) {
         await disconnect();
     }
 }
+
+  export async function verifyToken(req: Request, res: Response, next: NextFunction) {
+    
+    const token = req.header("auth-token");
+    if (!token) {
+        return res.status(401).json({ message: "Access denied. No token provided." });
+    }
+
+    try {
+
+        if(token){
+            jwt.verify(token, process.env.TOKEN_SECRET as string);
+        }
+        next();
+
+    } catch (error) {
+        res.status(400).json({ message: "Invalid token." });
+    }
+
+
+  }
