@@ -2,6 +2,10 @@ import e, { Request, Response } from "express";
 import { RecipeModel } from "../models/recipeModel";
 import { connect, disconnect } from "../repository/database";
 
+/**
+ * Controller for handling recipe-related operations.
+ * This includes functions for creating a new recipe, retrieving all recipes, retrieving a recipe by ID, updating a recipe by ID, and deleting a recipe by ID.
+ */
 export async function createRecipe(req: Request, res: Response): Promise<void> {
 
     const data = req.body;

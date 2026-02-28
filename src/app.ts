@@ -4,11 +4,15 @@ import {connect, testConnection} from './repository/database';
 import cors from 'cors';
 import routes from './routes';
 import { disconnect } from './repository/database';
+import { setupDocumentation } from './util/documentation';
 
 dotenvFlow.config();    
 const app: Application = express();
 
-
+/**
+ * Starts the Express server.
+ * This function sets up middleware, routes, and starts listening on the specified port.
+ */
 export function startServer() {
 
     app.use(cors({
@@ -29,6 +33,8 @@ export function startServer() {
     app.use(express.json());
     
     app.use('/api', routes);
+
+    setupDocumentation(app);
 
     testConnection();
 

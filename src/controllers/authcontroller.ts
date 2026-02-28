@@ -15,6 +15,10 @@ import { UserModel } from "../models/userModel";
 import { User } from "../interfaces/user";
 import { connect, disconnect } from '../repository/database';
 
+/**
+ * Controller for handling user authentication and registration.
+ * This includes functions for registering a new user, logging in an existing user, and verifying JWT tokens.
+ */
 export async function registerUser(req: Request, res: Response) {
     try {
         const { error } = validateUserRegistrationInfo(req.body);

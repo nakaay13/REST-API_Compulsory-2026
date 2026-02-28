@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+// Test the database connection by connecting and disconnecting immediately.
 export async function testConnection() {
     try {
         await connect();
@@ -10,6 +11,7 @@ export async function testConnection() {
     }
 }
 
+/// Connects to the MongoDB database using Mongoose.
 export async function connect() {
     try {
         if (!process.env.DBHOST) {
@@ -28,6 +30,7 @@ export async function connect() {
     } 
 }
 
+/// Disconnects from the MongoDB database using Mongoose.
 export async function disconnect() {
     try {
         await mongoose.disconnect();
