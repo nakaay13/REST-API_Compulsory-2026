@@ -1,0 +1,41 @@
+<h2>Recipes</h2>
+<div class="actions">
+  <a routerLink="/recipes/create" class="create-btn">+ Create New Recipe</a>
+</div>
+
+<div class="recipe-list">
+  @for (r of recipes(); track r._id) {
+    <div class="recipe-card">
+      <img [src]="r.imageUrl" alt="{{ r.title }}" class="recipe-image" />
+      <div class="recipe-content">
+        <h3>{{ r.title }}</h3>
+        <p>{{ r.description }}</p>
+
+        <h4>Ingredients:</h4>
+        <ul>
+          @for (ingredient of r.ingredients; track ingredient) {
+            <li>{{ ingredient }}</li>
+          } @empty {
+            <li>No ingredients listed.</li>
+          }
+        </ul>
+
+        <h4>Instructions:</h4>
+        <ol>
+          @for (step of r.instructions; track step) {
+            <li>{{ step }}</li>
+          } @empty {
+            <li>No instructions listed.</li>
+          }
+        </ol>
+
+        <div class="buttons">
+          <button (click)="editRecipe(r._id)" class="edit-btn">Edit</button>
+          <button (click)="deleteRecipe(r._id)" class="delete-btn">Delete</button>
+        </div>
+      </div>
+    </div>
+  } @empty {
+    <p class="empty">No recipes found.</p>
+  }
+</div>
