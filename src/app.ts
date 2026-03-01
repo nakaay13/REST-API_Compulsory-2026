@@ -44,11 +44,9 @@ export function startServer() {
   app.use(express.static(frontendPath));
 
   // Serve index.html for all non-API routes (Angular routing)
-  app.get('*', (req: Request, res: Response) => {
-    if (!req.path.startsWith('/api')) {
-      res.sendFile(path.join(frontendPath, 'index.html'));
-    }
-  });
+app.get(/^(?!\/api).*/, (req: Request, res: Response) => {
+  res.sendFile(path.join(frontendPath, 'index.html'));
+});
 
 
     const PORT:number = parseInt(process.env.PORT as string) || 4000;
