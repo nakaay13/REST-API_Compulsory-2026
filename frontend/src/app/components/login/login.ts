@@ -1,35 +1,35 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms'; // 👈 ADD THIS
 import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule],
-  template: `
-    <h2>Login</h2>
-    <form (ngSubmit)="login()">
-      <input type="email" [(ngModel)]="email" name="email" placeholder="Email" required />
-      <input type="password" [(ngModel)]="password" name="password" placeholder="Password" required />
-      <button type="submit">Login</button>
-    </form>
-  `
+  templateUrl: './login.html',
+  styleUrls: ['./login.scss'],
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule // 👈 AND REGISTER IT HERE
+  ],
 })
 export class LoginComponent {
   email = '';
   password = '';
+  error = '';
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private auth: AuthService) {}
 
   login() {
     this.auth.login(this.email, this.password).subscribe({
       next: res => {
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('userId', res.userId);
-        this.router.navigate(['/recipes']);
+        this.auth.setSession(res.data.token, res.data.user.id);
       },
-      error: err => alert(err.error.message)
+      error: err => {
+        this.error = err.error?.message ?? 'Login failed';
+      }
     });
   }
 }

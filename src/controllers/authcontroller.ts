@@ -105,8 +105,21 @@ export async function loginUser(req: Request, res: Response) {
                 { expiresIn: '2h' }
                 
             );
-            res.status(200).header("auth-token", token).json({ error: null, data: {userId, token} });
-        }
+             // ✅ Return the token and user info (including name) so frontend can use it
+                res.status(200)
+                .header("auth-token", token)
+                .json({
+                    error: null,
+                    data: {
+                        token,
+                        user: {
+                            id: userId,
+                            name: user.name,
+                            email: user.email
+                        }
+                    }
+                });
+                }
 
 
     } catch (error) {
