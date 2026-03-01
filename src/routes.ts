@@ -10,7 +10,7 @@ import {
   loginUser,
   registerUser,
   verifyToken
-} from "./controllers/authController";
+} from "./controllers/authcontroller.ts";
 
 const router: Router = Router();
 
