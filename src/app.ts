@@ -2,6 +2,7 @@ import express, { Application, Request, Response } from 'express';
 import dotenvFlow from 'dotenv-flow';
 import {connect, testConnection} from './repository/database';
 import cors from 'cors';
+import path from 'path';
 import routes from './routes';
 import { disconnect } from './repository/database';
 import { setupDocumentation } from './util/documentation';
@@ -38,8 +39,25 @@ export function startServer() {
 
     testConnection();
 
+    // Serve Angular frontend
+  const frontendPath = path.join(__dirname, '../frontend/dist/frontend');
+  app.use(express.static(frontendPath));
+
+  // Serve index.html for all non-API routes (Angular routing)
+  app.get('*', (req: Request, res: Response) => {
+    if (!req.path.startsWith('/api')) {
+      res.sendFile(path.join(frontendPath, 'index.html'));
+    }
+  });
+
+
     const PORT:number = parseInt(process.env.PORT as string) || 4000;
     app.listen(PORT, function() {
         console.log(`Server is running on port ${PORT}`);
     });
+}
+
+// Only start server if this file is executed directly
+if (require.main === module) {
+  startServer();
 }
