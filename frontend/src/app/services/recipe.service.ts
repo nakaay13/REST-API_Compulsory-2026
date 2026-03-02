@@ -16,7 +16,7 @@ export interface Recipe {
   providedIn: 'root'
 })
 export class RecipeService {
-  private apiUrl = 'http://localhost:4000/api/recipes'; // backend URL
+  private apiUrl = '/api/recipes'; // backend URL
 
   constructor(private http: HttpClient) {}
 

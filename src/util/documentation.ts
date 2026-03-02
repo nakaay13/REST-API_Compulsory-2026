@@ -15,10 +15,14 @@ export function setupDocumentation(app: Application) {
             description: 'API documentation for the Recipe API',
         },
         servers: [
-            {
-                url: 'http://localhost:4000/api/',
-                description: 'Development server'
-            }
+        {
+            url: 'http://localhost:4000/api',
+            description: 'Local development'
+        },
+        {
+            url: 'https://rest-api-compulsory-2026.onrender.com/api',
+            description: 'Production (Render)'
+        }
         ],
         components: {
             securitySchemes: {

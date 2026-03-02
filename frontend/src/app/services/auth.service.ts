@@ -18,7 +18,7 @@ interface RegisterResponse {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private apiUrl = 'http://localhost:4000/api/user';
+  private apiUrl = '/api/user';
 
   isLoggedIn = signal<boolean>(!!localStorage.getItem('token'));
 
@@ -28,7 +28,7 @@ login(email: string, password: string) {
   return this.http.post<{
     error: any;
     data: { token: string; user: { id: string; name: string; email: string } }
-  }>('http://localhost:4000/api/user/login', { email, password }).pipe(
+  }>('/api/user/login', { email, password }).pipe(
     tap(res => {
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('userId', res.data.user.id);
