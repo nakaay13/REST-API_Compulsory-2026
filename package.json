@@ -19,7 +19,9 @@
     "build": "npm run clean && tsc",
     "start-dev": "npx nodemon",
     "start": "node dist/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npm run test:frontend && npm run test:backend",
+    "test:frontend": "cd frontend && npm test -- --watch=false",
+    "test:backend": "npx vitest run src/controllers/authcontroller.spec.ts --no-watch",
     "postinstall": "cd frontend && npm install && ng build --configuration production"
   },
   "nodemonConfig": {
@@ -50,14 +52,19 @@
   "devDependencies": {
     "@angular/cli": "^21.2.0",
     "@types/bcrypt": "^6.0.0",
+    "@types/chai": "^4.3.5",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/joi": "^17.2.2",
     "@types/jsonwebtoken": "^9.0.10",
+    "@types/mocha": "^10.0.1",
     "@types/node": "^25.3.0",
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.8",
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
     "rimraf": "^6.1.3",
+    "vitest": "^4.0.18",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   }
