@@ -1,0 +1,33 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install backend dependencies
+        run: npm install
+
+      - name: Run backend tests
+        run: npm run test:backend
+        env:
+          DBHOST_TEST: ${{ secrets.DBHOST_TEST }}
+
+      - name: Install frontend dependencies
+        run: cd frontend && npm install
+
+      - name: Run frontend tests
+        run: cd frontend && npm test -- --watch=false
