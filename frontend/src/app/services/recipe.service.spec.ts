@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
 import { RecipeService, Recipe } from './recipe.service';
 
@@ -12,7 +11,6 @@ describe('RecipeService', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        provideHttpClient(),
         provideHttpClientTesting(),
       ],
     });
@@ -62,7 +60,7 @@ describe('RecipeService', () => {
       expect(recipe).toEqual(mockRecipe);
     });
 
-    const req = httpMock.expectOne('/api/recipes');
+    const req = httpMock.expectOne('/api/recipes/1');
     expect(req.request.method).toBe('GET');
     expect(req.request.headers.get('auth-token')).toBe('abc123');
 
