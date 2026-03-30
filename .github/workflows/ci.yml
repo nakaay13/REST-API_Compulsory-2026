@@ -25,6 +25,7 @@ jobs:
         run: npm run test:backend
         env:
           DBHOST_TEST: ${{ secrets.DBHOST_TEST }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
       - name: Install frontend dependencies
         run: cd frontend && npm install
