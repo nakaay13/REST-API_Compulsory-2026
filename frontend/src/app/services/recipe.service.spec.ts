@@ -41,7 +41,7 @@ describe('RecipeService', () => {
       expect(recipes).toEqual(mockRecipes);
     });
 
-    const req = httpMock.expectOne('http://localhost:4000/api/recipes');
+    const req = httpMock.expectOne('/api/recipes');
     expect(req.request.method).toBe('GET');
 
     req.flush(mockRecipes);
@@ -62,7 +62,7 @@ describe('RecipeService', () => {
       expect(recipe).toEqual(mockRecipe);
     });
 
-    const req = httpMock.expectOne('http://localhost:4000/api/recipes/1');
+    const req = httpMock.expectOne('/api/recipes');
     expect(req.request.method).toBe('GET');
     expect(req.request.headers.get('auth-token')).toBe('abc123');
 
@@ -84,7 +84,7 @@ describe('RecipeService', () => {
       expect(res).toEqual(newRecipe);
     });
 
-    const req = httpMock.expectOne('http://localhost:4000/api/recipes');
+    const req = httpMock.expectOne('/api/recipes');
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual(newRecipe);
 
@@ -104,7 +104,7 @@ describe('RecipeService', () => {
 
     service.update('1', updated).subscribe();
 
-    const req = httpMock.expectOne('http://localhost:4000/api/recipes/1');
+    const req = httpMock.expectOne('/api/recipes/1');
     expect(req.request.method).toBe('PUT');
     expect(req.request.body).toEqual(updated);
 
@@ -116,7 +116,7 @@ describe('RecipeService', () => {
 
     service.delete('1').subscribe();
 
-    const req = httpMock.expectOne('http://localhost:4000/api/recipes/1');
+    const req = httpMock.expectOne('/api/recipes/1');
     expect(req.request.method).toBe('DELETE');
 
     req.flush({});
