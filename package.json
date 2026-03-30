@@ -18,7 +18,7 @@
     "clean": "rimraf dist",
     "build": "npm run clean && tsc",
     "start-dev": "npx nodemon",
-    "start": "node dist/app.js",
+    "start": "node dist/src/app.js",
     "test": "npm run test:frontend && npm run test:backend",
     "test:frontend": "cd frontend && npm test -- --watch=false",
     "test:backend": "vitest run src/tests",
