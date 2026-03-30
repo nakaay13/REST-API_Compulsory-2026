@@ -42,7 +42,7 @@ export function startServer() {
     // Serve Angular frontend
   const frontendPath = path.join(
   __dirname,
-  '../frontend/dist/frontend/browser'
+  '../../frontend/dist/frontend/browser'
 );
   app.use(express.static(frontendPath));
 
