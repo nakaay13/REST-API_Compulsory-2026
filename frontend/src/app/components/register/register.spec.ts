@@ -28,12 +28,12 @@ describe('RegisterComponent', () => {
     authService.register.mockReturnValue(of({ message: 'OK' }));
     vi.spyOn(router, 'navigate');
 
-    component.name = 'n';
-    component.email = 'e';
-    component.password = 'p';
+    component.name = 'name';
+    component.email = 'email@example.com';
+    component.password = 'password';
     component.register();
 
-    expect(authService.register).toHaveBeenCalledWith('n', 'e', 'p');
+    expect(authService.register).toHaveBeenCalledWith('name', 'email@example.com', 'password');
     expect(router.navigate).toHaveBeenCalledWith(['/login']);
   });
 
