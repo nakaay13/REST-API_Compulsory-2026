@@ -1,6 +1,8 @@
 <h2>Recipes</h2>
 <div class="actions">
-  <a routerLink="/recipes/create" class="create-btn">+ Create New Recipe</a>
+  @if (auth.isLoggedIn()) {
+    <a routerLink="/recipes/create" class="create-btn">+ Create New Recipe</a>
+  }
 </div>
 
 <div class="recipe-list">
@@ -29,10 +31,12 @@
           }
         </ol>
 
-        <div class="buttons">
-          <button (click)="editRecipe(r._id)" class="edit-btn">Edit</button>
-          <button (click)="deleteRecipe(r._id)" class="delete-btn">Delete</button>
-        </div>
+        @if (auth.isLoggedIn()) {
+          <div class="buttons">
+            <button (click)="editRecipe(r._id)" class="edit-btn">Edit</button>
+            <button (click)="deleteRecipe(r._id)" class="delete-btn">Delete</button>
+          </div>
+        }
       </div>
     </div>
   } @empty {

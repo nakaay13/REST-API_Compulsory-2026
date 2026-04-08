@@ -2,6 +2,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { RecipeService, Recipe } from '../../services/recipe.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-recipe-list',
@@ -14,7 +15,11 @@ export class RecipeListComponent implements OnInit {
   // signal of array
   recipes = signal<Recipe[]>([]);
 
-  constructor(private recipeService: RecipeService, private router: Router) {}
+  constructor(
+    private recipeService: RecipeService,
+    private router: Router,
+    public auth: AuthService
+  ) {}
 
   ngOnInit() {
     this.loadRecipes();
