@@ -28,7 +28,7 @@ login(email: string, password: string) {
   return this.http.post<{
     error: any;
     data: { token: string; user: { id: string; name: string; email: string } }
-  }>('/api/user/login', { email, password }).pipe(
+  }>(`${this.apiUrl}/login`, { email, password }).pipe(
     tap(res => {
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('userId', res.data.user.id);
