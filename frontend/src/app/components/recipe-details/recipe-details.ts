@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Recipe, RecipeService } from '../../services/recipe.service';
@@ -18,7 +18,8 @@ export class RecipeDetailsComponent implements OnInit {
   constructor(
     private recipeService: RecipeService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -31,13 +32,18 @@ export class RecipeDetailsComponent implements OnInit {
 
     this.recipeService.getOne(id).subscribe({
       next: recipe => {
+        console.log('Recipe data received:', recipe);
+        console.log('Recipe keys:', Object.keys(recipe));
         this.recipe = recipe;
         this.loading = false;
+        this.cdr.detectChanges();
+        console.log('Recipe assigned to component:', this.recipe);
       },
       error: err => {
         console.error('Failed to load recipe details', err);
         this.error = 'Unable to load recipe details';
         this.loading = false;
+        this.cdr.detectChanges();
       },
     });
   }
