@@ -1,38 +1,48 @@
 import e, { Request, Response } from "express";
 import { RecipeModel } from "../models/recipeModel";
 import { connect, disconnect } from "../repository/database";
+import { AuthRequest } from "../interfaces/authRequest";
 
 /**
  * Controller for handling recipe-related operations.
  * This includes functions for creating a new recipe, retrieving all recipes, retrieving a recipe by ID, updating a recipe by ID, and deleting a recipe by ID.
  */
-export async function createRecipe(req: Request, res: Response): Promise<void> {
+export async function createRecipe(
+    req: AuthRequest,
+    res: Response
+): Promise<void> {
 
     const data = req.body;
 
     try {
-
         await connect();
-        const recipe = new RecipeModel(data);
+
+        const recipe = new RecipeModel({
+            ...data,
+            author: req.user?.id
+        });
+
         const result = await recipe.save();
+
         res.status(201).json(result);
 
     } catch (error) {
 
-        res.status(500).json({ error: "Failed to create recipe: " + error });
+        res.status(500).json({
+            error: "Failed to create recipe: " + error
+        });
 
     } finally {
-
         await disconnect();
-        
     }
 }
-
 export async function getAllRecipes(req: Request, res: Response){
     try {
 
         await connect();
-        const recipes = await RecipeModel.find({});
+        const recipes = await RecipeModel
+    .find({})
+    .populate("author", "name email");
         res.status(200).json(recipes);
 
     } catch (error) {
@@ -69,7 +79,10 @@ export async function getRecipeById(req: Request, res: Response){
 }
 
 
-export async function updateRecipeById(req: Request, res: Response){
+export async function updateRecipeById(
+    req: AuthRequest,
+    res: Response
+) {
 
     const id = req.params.id;
     const updateData = req.body;
@@ -77,18 +90,47 @@ export async function updateRecipeById(req: Request, res: Response){
     try {
 
         await connect();
-        const recipe = await RecipeModel.findByIdAndUpdate(id, updateData);
+
+        const recipe = await RecipeModel.findById(id);
+
         if (!recipe) {
-            res.status(404).json({ error: "Recipe not found" });
+
+            res.status(404).json({
+                error: "Recipe not found"
+            });
+
             return;
-        } else {
-            res.status(200).json({ message: "Recipe updated successfully" });
         }
-        
+
+        const isOwner =
+            recipe.author.toString() === req.user?.id;
+
+        const isAdmin =
+            req.user?.isAdmin === true;
+
+        if (!isOwner && !isAdmin) {
+
+            res.status(403).json({
+                error: "Not authorized"
+            });
+
+            return;
+        }
+
+        await RecipeModel.findByIdAndUpdate(
+            id,
+            updateData
+        );
+
+        res.status(200).json({
+            message: "Recipe updated successfully"
+        });
 
     } catch (error) {
 
-        res.status(500).json({ error: "Failed to update recipe: " + error });
+        res.status(500).json({
+            error: "Failed to update recipe: " + error
+        });
 
     } finally {
 
@@ -97,25 +139,54 @@ export async function updateRecipeById(req: Request, res: Response){
     }
 }
 
-export async function deleteRecipeById(req: Request, res: Response){
+export async function deleteRecipeById(
+    req: AuthRequest,
+    res: Response
+) {
 
     const id = req.params.id;
 
     try {
 
         await connect();
-        const recipe = await RecipeModel.findByIdAndDelete(id);
+
+        const recipe = await RecipeModel.findById(id);
+
         if (!recipe) {
-            res.status(404).json({ error: "Recipe not found" });
+
+            res.status(404).json({
+                error: "Recipe not found"
+            });
+
             return;
-        } else {
-            res.status(200).json({ message: "Recipe deleted successfully" });
         }
-        
+
+        const isOwner =
+            recipe.author.toString() === req.user?.id;
+
+        const isAdmin =
+            req.user?.isAdmin === true;
+
+        if (!isOwner && !isAdmin) {
+
+            res.status(403).json({
+                error: "Not authorized"
+            });
+
+            return;
+        }
+
+        await RecipeModel.findByIdAndDelete(id);
+
+        res.status(200).json({
+            message: "Recipe deleted successfully"
+        });
 
     } catch (error) {
 
-        res.status(500).json({ error: "Failed to delete recipe: " + error });
+        res.status(500).json({
+            error: "Failed to delete recipe: " + error
+        });
 
     } finally {
 

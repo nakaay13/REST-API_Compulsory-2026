@@ -9,4 +9,5 @@ export interface Recipe extends Document {
     _createdBy: User['id'];
     createdAt: Date;
     updatedAt: Date;
+    author: User | string;
 }

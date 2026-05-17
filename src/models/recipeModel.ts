@@ -9,7 +9,12 @@ const recipeSchema = new Schema<Recipe>({
         instructions: {type: [String], required: true}, 
         _createdBy: {type: String, ref: 'User', required: true},
         createdAt: {type: Date, required: true, default: Date.now},
-        updatedAt: {type: Date, required: true, default: Date.now}
+        updatedAt: {type: Date, required: true, default: Date.now},
+        author: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+        }
 });
 
 export const RecipeModel = model<Recipe>('Recipe', recipeSchema);

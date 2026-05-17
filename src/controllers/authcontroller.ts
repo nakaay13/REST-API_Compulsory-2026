@@ -14,7 +14,7 @@ import Joi, { ValidationResult } from "joi";
 import { UserModel } from "../models/userModel";
 import { User } from "../interfaces/user";
 import { connect, disconnect } from '../repository/database';
-
+import { AuthRequest } from "../interfaces/authRequest";
 /**
  * Controller for handling user authentication and registration.
  * This includes functions for registering a new user, logging in an existing user, and verifying JWT tokens.
@@ -99,11 +99,11 @@ export async function loginUser(req: Request, res: Response) {
                 {
                     name: user.name,
                     email: user.email,
-                    id: userId
+                    id: userId,
+                    isAdmin: user.isAdmin
                 },
                 process.env.TOKEN_SECRET as string,
                 { expiresIn: '2h' }
-                
             );
              // ✅ Return the token and user info (including name) so frontend can use it
                 res.status(200)
@@ -115,7 +115,8 @@ export async function loginUser(req: Request, res: Response) {
                         user: {
                             id: userId,
                             name: user.name,
-                            email: user.email
+                            email: user.email,
+                            isAdmin: user.isAdmin
                         }
                     }
                 });
@@ -131,23 +132,35 @@ export async function loginUser(req: Request, res: Response) {
     }
 }
 
-  export async function verifyToken(req: Request, res: Response, next: NextFunction) {
-    
+export async function verifyToken(
+    req: AuthRequest,
+    res: Response,
+    next: NextFunction
+) {
     const token = req.header("auth-token");
+
     if (!token) {
-        return res.status(401).json({ message: "Access denied. No token provided." });
+        return res.status(401).json({
+            message: "Access denied. No token provided."
+        });
     }
 
     try {
 
-        if(token){
-            jwt.verify(token, process.env.TOKEN_SECRET as string);
-        }
+        const decoded = jwt.verify(
+            token,
+            process.env.TOKEN_SECRET as string
+        ) as jwt.JwtPayload;
+
+        req.user = decoded;
+
         next();
 
     } catch (error) {
-        res.status(400).json({ message: "Invalid token." });
+
+        res.status(400).json({
+            message: "Invalid token."
+        });
+
     }
-
-
-  }
+}
