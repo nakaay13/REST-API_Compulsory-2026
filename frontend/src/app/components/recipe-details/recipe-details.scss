@@ -1,0 +1,44 @@
+.recipe-details {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.back-btn {
+  display: inline-flex;
+  margin-bottom: 1rem;
+  border: none;
+  background: #f5f5f5;
+  color: #333;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.details-card {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.details-image {
+  width: 100%;
+  max-height: 360px;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+
+.details-content h2 {
+  margin-top: 0;
+}
+
+.description {
+  margin: 1rem 0;
+}
+
+section {
+  margin-bottom: 1rem;
+}
+
+.error-message {
+  color: #b00020;
+}

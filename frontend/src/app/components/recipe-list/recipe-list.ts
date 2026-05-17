@@ -37,6 +37,11 @@ export class RecipeListComponent implements OnInit {
     this.recipeService.delete(id).subscribe(() => this.loadRecipes());
   }
 
+  viewRecipe(id?: string) {
+    if (!id) return;
+    this.router.navigate(['/recipes', id]);
+  }
+
   editRecipe(id?: string) {
     if (!id) return;
     this.router.navigate(['/recipes/edit', id]);
