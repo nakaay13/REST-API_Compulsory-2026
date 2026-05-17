@@ -11,7 +11,12 @@ export interface Recipe {
   description: string;
   ingredients: string[];
   instructions: string[];
-  _createdBy?: string;
+
+  author?: {
+    _id: string;
+    name: string;
+    email: string;
+  };
 }
 
 @Injectable({
@@ -26,10 +31,15 @@ export class RecipeService {
 
   constructor(private http: HttpClient) {}
 
-  private getAuthHeaders(): { headers: HttpHeaders } {
-    const token = localStorage.getItem('token');
-    return { headers: new HttpHeaders({ 'auth-token': token || '' }) };
-  }
+private getAuthHeaders() {
+  const token = localStorage.getItem('token');
+
+  return {
+    headers: new HttpHeaders({
+      'auth-token': token ?? ''
+    })
+  };
+}
 
   getAll(): Observable<Recipe[]> {
     if (!this.allRecipesRequest) {

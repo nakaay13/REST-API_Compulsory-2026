@@ -4,12 +4,18 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { API_BASE_URL } from './api.config';
+import { Recipe } from './recipe.service';
 
 interface LoginResponse {
   error: any;
   data: {
     token: string;
-    user: { id: string; name: string; email: string };
+    user: {
+      id: string;
+      name: string;
+      email: string;
+      isAdmin: boolean;
+    };
   };
 }
 
@@ -28,12 +34,13 @@ export class AuthService {
 login(email: string, password: string) {
   return this.http.post<{
     error: any;
-    data: { token: string; user: { id: string; name: string; email: string } }
+    data: { token: string; user: { id: string; name: string; email: string; isAdmin: boolean } }
   }>(`${this.apiUrl}/login`, { email, password }).pipe(
     tap(res => {
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('userId', res.data.user.id);
       localStorage.setItem('userName', res.data.user.name); // ✅ store real name
+      localStorage.setItem('isAdmin', res.data.user.isAdmin.toString()); // ✅ store admin status
     })
   );
 }
@@ -66,4 +73,21 @@ login(email: string, password: string) {
   getToken(): string | null {
     return localStorage.getItem('token');
   }
+
+  get isAdmin(): boolean {
+  return localStorage.getItem('isAdmin') === 'true';
+}
+
+get userId(): string | null {
+  return localStorage.getItem('userId');
+}
+
+canEditRecipe(recipe: Recipe): boolean {
+  const userId = localStorage.getItem('userId');
+  const isAdmin = localStorage.getItem('isAdmin') === 'true';
+
+  if (isAdmin) return true;
+
+  return recipe.author?._id === userId;
+}
 }

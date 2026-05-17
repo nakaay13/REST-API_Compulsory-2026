@@ -6,7 +6,6 @@ export interface Recipe extends Document {
     description: string;
     ingredients: string[];
     instructions: string[];
-    _createdBy: User['id'];
     createdAt: Date;
     updatedAt: Date;
     author: User | string;
