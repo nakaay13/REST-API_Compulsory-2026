@@ -11,6 +11,12 @@
       <img [src]="r.imageUrl" alt="{{ r.title }}" class="recipe-image" />
       <div class="recipe-content">
         <h3>{{ r.title }}</h3>
+
+@if (r.author) {
+  <p class="recipe-author">
+    Author: {{ r.author.name }}
+  </p>
+}
         <p>{{ r.description }}</p>
 
 
