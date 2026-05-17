@@ -14,10 +14,19 @@
         <p>{{ r.description }}</p>
 
 
-        @if (auth.isLoggedIn()) {
+        @if (auth.canEditRecipe(r)) {
           <div class="buttons">
-            <button type="button" (click)="editRecipe(r._id); $event.stopPropagation()" class="edit-btn">Edit</button>
-            <button type="button" (click)="deleteRecipe(r._id); $event.stopPropagation()" class="delete-btn">Delete</button>
+            <button type="button"
+                    (click)="editRecipe(r._id); $event.stopPropagation()"
+                    class="edit-btn">
+              Edit
+            </button>
+
+            <button type="button"
+                    (click)="deleteRecipe(r._id); $event.stopPropagation()"
+                    class="delete-btn">
+              Delete
+            </button>
           </div>
         }
       </div>

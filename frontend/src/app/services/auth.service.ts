@@ -78,25 +78,25 @@ login(email: string, password: string) {
   return localStorage.getItem('isAdmin') === 'true';
 }
 
-get userId(): string | null {
-  return localStorage.getItem('userId');
-}
+  get userId(): string | null {
+    return localStorage.getItem('userId');
+  }
 
-canEditRecipe(recipe: Recipe): boolean {
-  const userId = localStorage.getItem('userId');
-  const isAdmin = localStorage.getItem('isAdmin') === 'true';
+  canEditRecipe(recipe: Recipe): boolean {
+    const userId = localStorage.getItem('userId');
+    const isAdmin = localStorage.getItem('isAdmin') === 'true';
 
-  if (isAdmin) return true;
+    if (isAdmin) return true;
 
-  return recipe.author?._id === userId;
-}
+    return recipe.author?._id === userId;
+  }
 
-getUser(): { id: string; isAdmin: boolean } | null {
-  const id = localStorage.getItem('userId');
-  const isAdmin = localStorage.getItem('isAdmin') === 'true';
+  getUser(): { id: string; isAdmin: boolean } | null {
+    const id = localStorage.getItem('userId');
+    const isAdmin = localStorage.getItem('isAdmin') === 'true';
 
-  if (!id) return null;
+    if (!id) return null;
 
-  return { id, isAdmin };
-}
+    return { id, isAdmin };
+  }
 }

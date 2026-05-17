@@ -49,30 +49,24 @@ export class RecipeFormComponent implements OnInit {
   }
 
   save() {
-  this.recipe.ingredients = this.ingredientsStr
-    .split(',')
-    .map(i => i.trim())
-    .filter(Boolean);
+    this.recipe.ingredients = this.ingredientsStr
+      .split(',')
+      .map(i => i.trim())
+      .filter(Boolean);
 
-  this.recipe.instructions = this.instructionsStr
-    .split(',')
-    .map(i => i.trim())
-    .filter(Boolean);
+    this.recipe.instructions = this.instructionsStr
+      .split(',')
+      .map(i => i.trim())
+      .filter(Boolean);
 
-  // ✅ IMPORTANT: attach logged-in user id
-  const userId = localStorage.getItem('userId');
-  if (userId) {
-    this.recipe._createdBy = userId;
+    if (this.isEdit && this.id) {
+      this.recipeService
+        .update(this.id, this.recipe)
+        .subscribe(() => this.router.navigate(['/recipes']));
+    } else {
+      this.recipeService
+        .create(this.recipe)
+        .subscribe(() => this.router.navigate(['/recipes']));
+    }
   }
-
-  if (this.isEdit && this.id) {
-    this.recipeService
-      .update(this.id, this.recipe)
-      .subscribe(() => this.router.navigate(['/recipes']));
-  } else {
-    this.recipeService
-      .create(this.recipe)
-      .subscribe(() => this.router.navigate(['/recipes']));
-  }
-}
 }
