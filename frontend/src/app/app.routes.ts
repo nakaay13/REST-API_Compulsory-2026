@@ -5,6 +5,7 @@ import { RecipeDetailsComponent } from './components/recipe-details/recipe-detai
 import { RegisterComponent } from './components/register/register';
 import { LoginComponent } from './components/login/login';
 import { authGuard } from './guards/auth.guard';
+import { recipeOwnerGuard } from './guards/recipe-owner.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/recipes', pathMatch: 'full' },
@@ -17,12 +18,12 @@ export const routes: Routes = [
   {
     path: 'recipes/create',
     component: RecipeFormComponent,
-    canActivate: [authGuard], // 🔒 protected
+    canActivate: [authGuard],
   },
   {
     path: 'recipes/edit/:id',
     component: RecipeFormComponent,
-    canActivate: [authGuard], // 🔒 protected
+    canActivate: [recipeOwnerGuard], // 🔥 upgraded
   },
   {
     path: 'recipes/:id',

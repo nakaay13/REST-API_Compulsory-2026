@@ -90,4 +90,13 @@ canEditRecipe(recipe: Recipe): boolean {
 
   return recipe.author?._id === userId;
 }
+
+getUser(): { id: string; isAdmin: boolean } | null {
+  const id = localStorage.getItem('userId');
+  const isAdmin = localStorage.getItem('isAdmin') === 'true';
+
+  if (!id) return null;
+
+  return { id, isAdmin };
+}
 }
