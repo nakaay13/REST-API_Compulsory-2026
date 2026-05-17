@@ -3,77 +3,85 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #f5f7fa;
+  background: radial-gradient(circle at top left, rgba(165, 124, 52, 0.12), transparent 30%),
+    linear-gradient(135deg, #f9f3e5, #efe3cf);
 }
 
 .recipe-form {
   width: 100%;
-  max-width: 500px;
-  background: #ffffff;
+  max-width: 520px;
+  background: #fff7ee;
   padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+  border-radius: 22px;
+  border: 1px solid rgba(165, 124, 52, 0.16);
+  box-shadow: 0 18px 45px rgba(79, 58, 31, 0.12);
 }
 
 .recipe-form h2 {
   text-align: center;
-  margin-bottom: 1.5rem;
-  color: #333;
+  margin-bottom: 1.6rem;
+  color: var(--brand-dark);
 }
 
 .form-group {
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.3rem;
 }
 
 .form-group label {
   display: block;
-  font-weight: 600;
-  margin-bottom: 0.4rem;
-  color: #555;
+  font-weight: 700;
+  margin-bottom: 0.45rem;
+  color: var(--brand-dark);
 }
 
 .form-group input,
 .form-group textarea {
   width: 100%;
-  padding: 0.6rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 0.95rem;
+  padding: 0.8rem 0.9rem;
+  border-radius: 14px;
+  border: 1px solid rgba(121, 95, 46, 0.18);
+  font-size: 0.96rem;
+  background: #fffdf7;
+  color: var(--text);
   resize: vertical;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.15);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(165, 124, 52, 0.12);
 }
 
 .buttons {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
   margin-top: 1.5rem;
 }
 
 .save-btn {
-  padding: 0.6rem 1.4rem;
-  background-color: #4f46e5;
+  padding: 0.75rem 1.6rem;
+  background: linear-gradient(135deg, var(--accent-soft), var(--accent));
   border: none;
-  border-radius: 6px;
-  color: white;
-  font-weight: 600;
+  border-radius: 999px;
+  color: var(--brand-dark);
+  font-weight: 700;
   cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .save-btn:hover {
-  background-color: #4338ca;
+  transform: translateY(-1px);
+  box-shadow: 0 12px 22px rgba(79, 58, 31, 0.12);
 }
 
 .cancel-btn {
   text-decoration: none;
-  color: #666;
-  font-weight: 600;
+  color: var(--muted);
+  font-weight: 700;
 }
 
 .cancel-btn:hover {

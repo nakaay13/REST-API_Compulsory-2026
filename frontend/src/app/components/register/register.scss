@@ -1,25 +1,26 @@
-/* Reuse exactly the login styling */
 .login-container {
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+  background: radial-gradient(circle at top left, rgba(165, 124, 52, 0.12), transparent 30%),
+    linear-gradient(135deg, #f9f3e5, #efe3cf);
 }
 
 .login-card {
   width: 100%;
-  max-width: 360px;
-  background: #ffffff;
+  max-width: 380px;
+  background: #fff7ee;
   padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+  border-radius: 20px;
+  border: 1px solid rgba(165, 124, 52, 0.16);
+  box-shadow: 0 18px 35px rgba(79, 58, 31, 0.11);
 }
 
 .login-card h2 {
   text-align: center;
-  margin-bottom: 1.5rem;
-  color: #333;
+  margin-bottom: 1.4rem;
+  color: var(--brand-dark);
 }
 
 .form-group {
@@ -28,60 +29,65 @@
 
 .form-group label {
   display: block;
-  font-weight: 600;
-  margin-bottom: 0.4rem;
-  color: #555;
+  font-weight: 700;
+  margin-bottom: 0.45rem;
+  color: var(--brand-dark);
 }
 
 .form-group input {
   width: 100%;
-  padding: 0.55rem 0.6rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+  padding: 0.75rem 0.85rem;
+  border-radius: 12px;
+  border: 1px solid rgba(121, 95, 46, 0.18);
   font-size: 0.95rem;
+  background: #fffdf7;
+  color: var(--text);
 }
 
 .form-group input:focus {
   outline: none;
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.15);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(165, 124, 52, 0.12);
 }
 
 .login-btn {
   width: 100%;
   margin-top: 0.5rem;
-  padding: 0.65rem;
-  background-color: #4f46e5;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, var(--accent-soft), var(--accent));
   border: none;
-  border-radius: 6px;
-  color: white;
+  border-radius: 999px;
+  color: var(--brand-dark);
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .login-btn:hover {
-  background-color: #4338ca;
+  transform: translateY(-1px);
+  box-shadow: 0 12px 22px rgba(79, 58, 31, 0.12);
 }
 
 .error {
   margin-bottom: 0.75rem;
-  padding: 0.5rem;
-  background: #fee2e2;
-  color: #b91c1c;
-  border-radius: 6px;
-  font-size: 0.9rem;
+  padding: 0.65rem;
+  background: rgba(166, 63, 38, 0.1);
+  color: #7b2f1f;
+  border-radius: 12px;
+  font-size: 0.92rem;
 }
 
 .register-link {
   text-align: center;
   margin-top: 1rem;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  color: var(--muted);
 }
 
 .register-link a {
-  color: #4f46e5;
-  font-weight: 600;
+  color: var(--brand-dark);
+  font-weight: 700;
   text-decoration: none;
 }
 

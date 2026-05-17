@@ -1,44 +1,87 @@
 .recipe-details {
-  max-width: 900px;
+  max-width: 980px;
   margin: 0 auto;
-  padding: 1.5rem;
+  padding: 2.5rem 1.5rem 3rem;
+  min-height: calc(100vh - 120px);
 }
 
 .back-btn {
   display: inline-flex;
-  margin-bottom: 1rem;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 1.4rem;
   border: none;
-  background: #f5f5f5;
-  color: #333;
-  padding: 0.75rem 1rem;
-  border-radius: 0.5rem;
+  background: rgba(165, 124, 52, 0.14);
+  color: var(--brand-dark);
+  padding: 0.85rem 1.2rem;
+  border-radius: 999px;
   cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.back-btn:hover {
+  background: rgba(165, 124, 52, 0.22);
+  transform: translateY(-1px);
 }
 
 .details-card {
   display: grid;
-  gap: 1.5rem;
+  gap: 1.8rem;
+  grid-template-columns: minmax(260px, 1.1fr) 0.9fr;
+  background: linear-gradient(180deg, #faf3e4 0%, #f2e8d5 100%);
+  border: 1px solid rgba(165, 124, 52, 0.18);
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
 }
 
 .details-image {
   width: 100%;
-  max-height: 360px;
+  min-height: 460px;
   object-fit: cover;
-  border-radius: 1rem;
+  background: #efe3cf;
+}
+
+.details-content {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .details-content h2 {
-  margin-top: 0;
+  margin: 0;
+  color: var(--brand-dark);
+  font-size: 2.1rem;
 }
 
 .description {
-  margin: 1rem 0;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.8;
 }
 
 section {
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+section h3 {
+  margin: 0 0 0.75rem;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+  font-size: 1.05rem;
+}
+
+section ul,
+section ol {
+  padding-left: 1.25rem;
+  margin: 0;
+  color: var(--muted);
 }
 
 .error-message {
-  color: #b00020;
+  color: var(--danger);
+  background: rgba(166, 63, 38, 0.1);
+  padding: 1rem 1.2rem;
+  border-radius: 16px;
 }

@@ -1,0 +1,24 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: radial-gradient(circle at top right, rgba(165,124,52,.16), transparent 24%),
+    linear-gradient(180deg, rgba(251,247,237,0.95), rgba(244,238,226,1));
+}
+
+:host::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(165,124,52,.06), transparent 48%);
+  pointer-events: none;
+}
+
+app-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.router-outlet {
+  display: block;
+}
