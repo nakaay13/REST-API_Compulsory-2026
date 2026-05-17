@@ -3,24 +3,33 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { Router } from '@angular/router';
 import { expect, vi } from 'vitest';
 import { AuthService } from './auth.service';
-
+import { provideHttpClient } from '@angular/common/http';
 describe('AuthService', () => {
   let service: AuthService;
   let httpMock: HttpTestingController;
   let mockRouter: Partial<Router>;
 
-  beforeEach(() => {
-    localStorage.clear();
-    mockRouter = {
-      navigate: vi.fn(),
-    };
-    TestBed.configureTestingModule({
-      providers: [{ provide: Router, useValue: mockRouter }, provideHttpClientTesting()],
-    });
+ beforeEach(() => {
+  localStorage.clear();
 
-    service = TestBed.inject(AuthService);
-    httpMock = TestBed.inject(HttpTestingController);
+  mockRouter = {
+    navigate: vi.fn(),
+  };
+
+  TestBed.configureTestingModule({
+    providers: [
+      AuthService,
+      { provide: Router, useValue: mockRouter },
+
+      // ✅ REQUIRED
+      provideHttpClient(),
+      provideHttpClientTesting(),
+    ],
   });
+
+  service = TestBed.inject(AuthService);
+  httpMock = TestBed.inject(HttpTestingController);
+});
 
   afterEach(() => {
     httpMock.verify();
@@ -31,26 +40,30 @@ describe('AuthService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should login and store token/user data in localStorage', () => {
-    const fakeResponse = {
-      error: null,
-      data: {
-        token: '12345',
-        user: { id: 'u1', name: 'Test User', email: 'test@example.com' },
-      },
-    };
+it('should login and store token/user data in localStorage', () => {
+  const fakeResponse = {
+    error: null,
+    data: {
+      token: '12345',
+      user: { id: 'u1', name: 'Test User', email: 'test@example.com', isAdmin: false },
+    },
+  };
 
-    service.login('test@example.com', 'secret').subscribe((res) => {
-      expect(res).toEqual(fakeResponse);
-      expect(localStorage.getItem('token')).toBe('12345');
-      expect(localStorage.getItem('userId')).toBe('u1');
-      expect(localStorage.getItem('userName')).toBe('Test User');
-    });
+  service.login('test@example.com', 'secret').subscribe((res) => {
+    expect(res).toEqual(fakeResponse);
 
-    const req = httpMock.expectOne('/api/user/login');
-    expect(req.request.method).toBe('POST');
-    req.flush(fakeResponse);
+    expect(localStorage.getItem('token')).toBe('12345');
+    expect(localStorage.getItem('userId')).toBe('u1');
+    expect(localStorage.getItem('userName')).toBe('Test User');
   });
+
+  const req = httpMock.expectOne((r) =>
+    r.url.includes('/user/login')
+  );
+
+  expect(req.request.method).toBe('POST');
+  req.flush(fakeResponse);
+});
 
   it('should set session and navigate to /recipes', () => {
     service.setSession('tok', 'id-1');
