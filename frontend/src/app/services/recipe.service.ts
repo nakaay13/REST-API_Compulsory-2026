@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { shareReplay, tap } from 'rxjs/operators';
+import { API_BASE_URL } from './api.config';
 
 export interface Recipe {
   _id?: string;
@@ -17,7 +18,7 @@ export interface Recipe {
   providedIn: 'root'
 })
 export class RecipeService {
-  private apiUrl = '/api/recipes'; // backend URL
+  private apiUrl = `${API_BASE_URL}/recipes`;
   private recipeCache = new Map<string, Recipe>();
   private recipeRequests = new Map<string, Observable<Recipe>>(); 
   private allRecipesCache: Recipe[] | null = null;

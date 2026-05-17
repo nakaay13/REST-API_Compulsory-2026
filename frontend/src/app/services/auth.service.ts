@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { API_BASE_URL } from './api.config';
 
 interface LoginResponse {
   error: any;
@@ -18,7 +19,7 @@ interface RegisterResponse {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private apiUrl = '/api/user';
+  private apiUrl = `${API_BASE_URL}/user`;
 
   isLoggedIn = signal<boolean>(!!localStorage.getItem('token'));
 
@@ -28,7 +29,7 @@ login(email: string, password: string) {
   return this.http.post<{
     error: any;
     data: { token: string; user: { id: string; name: string; email: string } }
-  }>('/api/user/login', { email, password }).pipe(
+  }>(`${this.apiUrl}/login`, { email, password }).pipe(
     tap(res => {
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('userId', res.data.user.id);
