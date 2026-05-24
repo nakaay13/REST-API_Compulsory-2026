@@ -108,15 +108,21 @@ login(email: string, password: string) {
   get userId(): string | null {
     return localStorage.getItem('userId');
   }
+canEditRecipe(recipe: Recipe): boolean {
+  const userId = localStorage.getItem('userId');
+  const isAdmin = localStorage.getItem('isAdmin') === 'true';
 
-  canEditRecipe(recipe: Recipe): boolean {
-    const userId = localStorage.getItem('userId');
-    const isAdmin = localStorage.getItem('isAdmin') === 'true';
+  if (!userId) return false;
 
-    if (isAdmin) return true;
+  if (isAdmin) return true;
 
-    return recipe.author?._id === userId;
-  }
+  const authorId =
+    typeof recipe.author === 'string'
+      ? recipe.author
+      : recipe.author?._id;
+
+  return authorId === userId;
+}
 
   getUser(): { id: string; isAdmin: boolean } | null {
     const id = localStorage.getItem('userId');
