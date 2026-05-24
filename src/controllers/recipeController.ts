@@ -194,3 +194,33 @@ export async function deleteRecipeById(
 
     }
 }
+
+export async function getRecipesByAuthor(
+    req: Request,
+    res: Response
+) {
+    try {
+
+        await connect();
+
+        const recipes = await RecipeModel
+            .find({
+                author: req.params.authorId
+            })
+            .populate("author", "name email");
+
+        res.status(200).json(recipes);
+
+    } catch (error) {
+
+        res.status(500).json({
+            error:
+                "Failed to retrieve author recipes: " + error
+        });
+
+    } finally {
+
+        await disconnect();
+
+    }
+}
