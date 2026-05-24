@@ -4,6 +4,7 @@ import {
   deleteRecipeById,
   getAllRecipes,
   getRecipeById,
+  getRecipesByAuthor,
   updateRecipeById
 } from "./controllers/recipeController";
 import {
@@ -197,5 +198,28 @@ router.put("/recipes/:id", verifyToken, updateRecipeById);
  *         description: Recipe not found
  */
 router.delete("/recipes/:id", verifyToken, deleteRecipeById);
+
+/**
+ * @swagger
+ * /recipes/author/{authorId}:
+ *   get:
+ *     tags:
+ *       - Recipes
+ *     summary: Get recipes by author
+ *     description: Retrieves all recipes created by a specific user.
+ *     parameters:
+ *       - name: authorId
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Author recipes returned successfully
+ */
+router.get(
+  "/recipes/author/:authorId",
+  getRecipesByAuthor
+);
 
 export default router;
