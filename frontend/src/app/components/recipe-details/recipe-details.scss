@@ -25,21 +25,20 @@
 }
 
 .details-card {
-  display: grid;
-  gap: 1.8rem;
-  grid-template-columns: minmax(260px, 1.1fr) 0.9fr;
+  display: flex;
+  flex-direction: column;
   background: linear-gradient(180deg, #faf3e4 0%, #f2e8d5 100%);
   border: 1px solid rgba(165, 124, 52, 0.18);
   border-radius: 28px;
   overflow: hidden;
   box-shadow: var(--shadow);
 }
-
 .details-image {
   width: 100%;
-  min-height: 460px;
+  height: 320px;
   object-fit: cover;
-  background: #efe3cf;
+  object-position: center;
+  display: block;
 }
 
 .details-content {
