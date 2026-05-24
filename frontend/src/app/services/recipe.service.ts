@@ -127,4 +127,11 @@ private getAuthHeaders() {
     this.recipeRequests.clear();
     this.clearAllRecipesCache();
   }
+
+  getRecipesByAuthor(authorId: string): Observable<Recipe[]> {
+  return this.http.get<Recipe[]>(
+    `${this.apiUrl}/author/${authorId}`,
+    this.getAuthHeaders()
+  );
+}
 }
