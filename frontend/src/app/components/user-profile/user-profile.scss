@@ -1,0 +1,109 @@
+.profile-container {
+  padding: 2rem 3rem;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  color: var(--brand-dark);
+}
+
+.user-info {
+  background: linear-gradient(180deg, #fbf5ea 0%, #f4ead6 100%);
+  border: 1px solid rgba(129, 96, 45, 0.14);
+  border-radius: 24px;
+  padding: 2rem;
+  margin-bottom: 3rem;
+  box-shadow: var(--shadow);
+}
+
+.user-info p {
+  margin: 0.5rem 0;
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+.user-info strong {
+  color: var(--brand-dark);
+}
+
+.recipe-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 3rem;
+  justify-items: center;
+}
+
+.recipe-card {
+  width: 100%;
+  border-radius: 24px;
+  overflow: hidden;
+  background: linear-gradient(180deg, #fbf5ea 0%, #f4ead6 100%);
+  border: 1px solid rgba(129, 96, 45, 0.14);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.recipe-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 28px 60px rgba(79, 58, 31, 0.16);
+}
+
+.recipe-image {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  background: linear-gradient(
+    180deg,
+    rgba(165, 124, 52, 0.08),
+    rgba(97, 124, 40, 0.08)
+  );
+}
+
+.recipe-content {
+  padding: 1.5rem 1.6rem 1.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.recipe-content h3 {
+  margin: 0;
+  color: var(--brand-dark);
+  font-size: 1.55rem;
+}
+
+.recipe-content p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.view-btn {
+  margin-top: auto;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.8rem 1rem;
+  border-radius: 999px;
+  background-color: var(--brand);
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  transition: transform 0.2s ease;
+}
+
+.view-btn:hover {
+  background-color: var(--brand-dark);
+  transform: translateY(-1px);
+}
+
+.empty {
+  text-align: center;
+  font-style: italic;
+  color: var(--muted);
+  margin-top: 2rem;
+}

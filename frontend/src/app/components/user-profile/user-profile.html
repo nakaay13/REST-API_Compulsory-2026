@@ -1,0 +1,40 @@
+<div class="profile-container">
+
+  <h1 class="title">Your Profile</h1>
+
+  <div class="user-info">
+    <p><strong>Name:</strong> {{ user.name }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+  </div>
+
+  <h2 class="title">Your Recipes</h2>
+
+  @if (recipes().length > 0) {
+    <div class="recipe-list">
+
+      @for (recipe of recipes(); track recipe._id) {
+        <div class="recipe-card">
+
+          <img class="recipe-image"
+               [src]="recipe.imageUrl"
+               [alt]="recipe.title" />
+
+          <div class="recipe-content">
+            <h3>{{ recipe.title }}</h3>
+            <p>{{ recipe.description }}</p>
+
+            <a class="view-btn"
+               [routerLink]="['/recipes', recipe._id]">
+              View Recipe
+            </a>
+          </div>
+
+        </div>
+      }
+
+    </div>
+  } @else {
+    <p class="empty">You have not created any recipes yet.</p>
+  }
+
+</div>
