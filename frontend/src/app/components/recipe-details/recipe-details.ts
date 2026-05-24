@@ -32,12 +32,9 @@ export class RecipeDetailsComponent implements OnInit {
 
     this.recipeService.getOne(id).subscribe({
       next: recipe => {
-        console.log('Recipe data received:', recipe);
-        console.log('Recipe keys:', Object.keys(recipe));
         this.recipe = recipe;
         this.loading = false;
         this.cdr.detectChanges();
-        console.log('Recipe assigned to component:', this.recipe);
       },
       error: err => {
         console.error('Failed to load recipe details', err);

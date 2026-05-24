@@ -2,6 +2,10 @@
   <div class="navbar-left">
     <a routerLink="/recipes">All Recipes</a>
     <a routerLink="/recipes/create">Create Recipe</a>
+
+    @if (auth.isLoggedIn()) {
+      <a routerLink="/profile">Profile</a>
+    }
   </div>
 
   <div class="navbar-right">

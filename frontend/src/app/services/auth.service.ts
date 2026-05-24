@@ -34,13 +34,40 @@ export class AuthService {
 login(email: string, password: string) {
   return this.http.post<{
     error: any;
-    data: { token: string; user: { id: string; name: string; email: string; isAdmin: boolean } }
+    data: {
+      token: string;
+      user: {
+        id: string;
+        name: string;
+        email: string;
+        isAdmin: boolean;
+      };
+    };
   }>(`${this.apiUrl}/login`, { email, password }).pipe(
     tap(res => {
       localStorage.setItem('token', res.data.token);
-      localStorage.setItem('userId', res.data.user.id);
-      localStorage.setItem('userName', res.data.user.name); // ✅ store real name
-      localStorage.setItem('isAdmin', res.data.user.isAdmin.toString()); // ✅ store admin status
+
+      localStorage.setItem(
+        'userId',
+        res.data.user.id
+      );
+
+      localStorage.setItem(
+        'userName',
+        res.data.user.name
+      );
+
+      localStorage.setItem(
+        'email',
+        res.data.user.email
+      );
+
+      localStorage.setItem(
+        'isAdmin',
+        res.data.user.isAdmin.toString()
+      );
+
+      this.isLoggedIn.set(true);
     })
   );
 }
