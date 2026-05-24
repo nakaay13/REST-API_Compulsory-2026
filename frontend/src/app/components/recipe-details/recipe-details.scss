@@ -85,3 +85,27 @@ section ol {
   padding: 1rem 1.2rem;
   border-radius: 16px;
 }
+.buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.edit-btn,
+.delete-btn {
+  padding: 0.8rem 1.2rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.edit-btn {
+  background: var(--brand);
+  color: white;
+}
+
+.delete-btn {
+  background: var(--danger);
+  color: white;
+}

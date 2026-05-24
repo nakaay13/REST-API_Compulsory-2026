@@ -1,5 +1,7 @@
 <div class="recipe-details">
-  <button type="button" class="back-btn" (click)="goBack()">← Back to recipes</button>
+  <button type="button" class="back-btn" (click)="goBack()">
+    ← Back to recipes
+  </button>
 
   @if (loading) {
     <div class="loader">
@@ -14,8 +16,15 @@
   }
 
   @if (!loading && recipe) {
+
     <div class="details-card">
-      <img [src]="recipe.imageUrl" alt="{{ recipe.title }}" class="details-image" />
+
+      <img
+        [src]="recipe.imageUrl"
+        alt="{{ recipe.title }}"
+        class="details-image"
+      />
+
       <div class="details-content">
         <h2>{{ recipe.title }}</h2>
 
@@ -24,6 +33,7 @@
             Author: {{ recipe.author.name }}
           </p>
         }
+
         <p class="description">{{ recipe.description }}</p>
 
         <section>
@@ -31,8 +41,6 @@
           <ul>
             @for (ingredient of recipe.ingredients; track ingredient) {
               <li>{{ ingredient }}</li>
-            } @empty {
-              <li>No ingredients listed.</li>
             }
           </ul>
         </section>
@@ -42,11 +50,31 @@
           <ol>
             @for (step of recipe.instructions; track step) {
               <li>{{ step }}</li>
-            } @empty {
-              <li>No instructions listed.</li>
             }
           </ol>
         </section>
+
+        <!-- ✅ ACTION BUTTONS INSIDE CARD -->
+        @if (auth.canEditRecipe(recipe)) {
+          <div class="buttons">
+
+            <button
+              type="button"
+              class="edit-btn"
+              (click)="editRecipe(recipe._id)">
+              Edit
+            </button>
+
+            <button
+              type="button"
+              class="delete-btn"
+              (click)="deleteRecipe(recipe._id)">
+              Delete
+            </button>
+
+          </div>
+        }
+
       </div>
     </div>
   }

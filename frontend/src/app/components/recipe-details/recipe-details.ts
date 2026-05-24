@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Recipe, RecipeService } from '../../services/recipe.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-recipe-details',
@@ -19,7 +20,8 @@ export class RecipeDetailsComponent implements OnInit {
     private recipeService: RecipeService,
     private route: ActivatedRoute,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+        public auth: AuthService
   ) {}
 
   ngOnInit() {
@@ -47,5 +49,19 @@ export class RecipeDetailsComponent implements OnInit {
 
   goBack() {
     this.router.navigate(['/recipes']);
+  }
+
+  
+  deleteRecipe(id?: string) {
+  if (!id) return;
+
+  this.recipeService.delete(id).subscribe(() => {
+    this.router.navigate(['/recipes']);
+  });
+}
+
+  editRecipe(id?: string) {
+    if (!id) return;
+    this.router.navigate(['/recipes/edit', id]);
   }
 }
