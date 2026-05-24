@@ -6,6 +6,7 @@ import { RegisterComponent } from './components/register/register';
 import { LoginComponent } from './components/login/login';
 import { authGuard } from './guards/auth.guard';
 import { recipeOwnerGuard } from './guards/recipe-owner.guard';
+import { UserProfileComponent } from './components/user-profile/user-profile';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/recipes', pathMatch: 'full' },
@@ -29,4 +30,9 @@ export const routes: Routes = [
     path: 'recipes/:id',
     component: RecipeDetailsComponent,
   },
+    {
+    path: 'profile',
+    component: UserProfileComponent,
+    canActivate: [authGuard],
+  }
 ];
