@@ -23,7 +23,7 @@
     "test:frontend": "cd frontend && npm test -- --watch=false",
     "test:backend": "vitest run src/tests",
     "postinstall": "cd frontend && npm install && ng build --configuration production",
-    "lint": "npx eslint"
+    "lint": "eslint . --ext .ts"
   },
   "nodemonConfig": {
     "verbose": false,
