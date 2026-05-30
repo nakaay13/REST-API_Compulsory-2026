@@ -1,10 +1,9 @@
 import express, { Application, Request, Response } from 'express';
 import dotenvFlow from 'dotenv-flow';
-import {connect, testConnection} from './repository/database';
+import { testConnection } from './repository/database';
 import cors from 'cors';
 import path from 'path';
 import routes from './routes';
-import { disconnect } from './repository/database';
 import { setupDocumentation } from './util/documentation';
 
 dotenvFlow.config();    

@@ -7,10 +7,13 @@ import { AuthService } from '../../services/auth.service';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
-  let authService: any;
+  let authService: { login: ReturnType<typeof vi.fn>; setSession: ReturnType<typeof vi.fn> };
 
   beforeEach(async () => {
-    const authSpy = { login: vi.fn(), setSession: vi.fn() };
+    const authSpy = {
+      login: vi.fn(),
+      setSession: vi.fn(),
+    };
 
     await TestBed.configureTestingModule({
       imports: [RouterModule, LoginComponent],
@@ -19,7 +22,7 @@ describe('LoginComponent', () => {
 
     const fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
-    authService = TestBed.inject(AuthService);
+    authService = TestBed.inject(AuthService) as unknown as typeof authSpy;
   });
 
   it('should create', () => {
@@ -28,7 +31,7 @@ describe('LoginComponent', () => {
 
   it('should login successfully and call setSession', () => {
     const data = { data: { token: 'test', user: { id: 'u1', name: 'User', email: 'a@b' } } };
-    authService.login.mockReturnValue(of(data as any));
+    authService.login.mockReturnValue(of(data));
 
     component.email = 'a@b.com';
     component.password = 'pass';

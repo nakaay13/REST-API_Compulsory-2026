@@ -9,7 +9,7 @@ import { RecipeService } from '../../services/recipe.service';
 
 describe('RecipeDetailsComponent', () => {
   let component: RecipeDetailsComponent;
-  let recipeService: any;
+  let recipeService: { getOne: ReturnType<typeof vi.fn> };
   let router: Router;
 
   beforeEach(async () => {
@@ -38,7 +38,7 @@ describe('RecipeDetailsComponent', () => {
     const fixture = TestBed.createComponent(RecipeDetailsComponent);
 
     component = fixture.componentInstance;
-    recipeService = TestBed.inject(RecipeService);
+    recipeService = TestBed.inject(RecipeService) as unknown as typeof recipeSpy;
     router = TestBed.inject(Router);
 
     vi.spyOn(component['cdr'] as ChangeDetectorRef, 'detectChanges');

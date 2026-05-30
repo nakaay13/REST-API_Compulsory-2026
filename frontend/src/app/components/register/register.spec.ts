@@ -7,7 +7,7 @@ import { AuthService } from '../../services/auth.service';
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
-  let authService: any;
+  let authService: { register: ReturnType<typeof vi.fn> };
   let router: Router;
 
   beforeEach(async () => {
@@ -20,7 +20,7 @@ describe('RegisterComponent', () => {
 
     const fixture = TestBed.createComponent(RegisterComponent);
     component = fixture.componentInstance;
-    authService = TestBed.inject(AuthService);
+    authService = TestBed.inject(AuthService) as unknown as typeof authSpy;
     router = TestBed.inject(Router);
   });
 
@@ -38,7 +38,7 @@ describe('RegisterComponent', () => {
   });
 
   it('should show alert on register error', () => {
-    const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {});
+    const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => undefined);
     authService.register.mockReturnValue(throwError(() => ({ error: { message: 'x' } })));
 
     component.register();

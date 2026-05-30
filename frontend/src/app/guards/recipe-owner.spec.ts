@@ -8,15 +8,15 @@ import { AuthService } from '../services/auth.service';
 import { RecipeService } from '../services/recipe.service';
 
 describe('recipeOwnerGuard', () => {
-  let authService: any;
-  let recipeService: any;
+  let authService: { getUser: ReturnType<typeof vi.fn> };
+  let recipeService: { getOne: ReturnType<typeof vi.fn> };
   let router: Router;
 
-  const route: any = {
+  const route = {
     params: {
       id: 'recipe-1',
     },
-  };
+  } as unknown as Parameters<typeof recipeOwnerGuard>[0];
 
   beforeEach(() => {
     authService = {
@@ -53,7 +53,10 @@ describe('recipeOwnerGuard', () => {
     authService.getUser.mockReturnValue(null);
 
     const result = await TestBed.runInInjectionContext(() =>
-      recipeOwnerGuard(route, {} as any)
+      recipeOwnerGuard(
+        route,
+        {} as unknown as Parameters<typeof recipeOwnerGuard>[1]
+      )
     );
 
     expect(authService.getUser).toHaveBeenCalled();
@@ -68,7 +71,10 @@ describe('recipeOwnerGuard', () => {
     });
 
     const result = await TestBed.runInInjectionContext(() =>
-      recipeOwnerGuard(route, {} as any)
+      recipeOwnerGuard(
+        route,
+        {} as unknown as Parameters<typeof recipeOwnerGuard>[1]
+      )
     );
 
     expect(result).toBe(true);
@@ -90,7 +96,10 @@ describe('recipeOwnerGuard', () => {
     );
 
     const result = await TestBed.runInInjectionContext(() =>
-      recipeOwnerGuard(route, {} as any)
+      recipeOwnerGuard(
+        route,
+        {} as unknown as Parameters<typeof recipeOwnerGuard>[1]
+      )
     );
 
     expect(recipeService.getOne).toHaveBeenCalledWith('recipe-1');
@@ -113,7 +122,10 @@ describe('recipeOwnerGuard', () => {
     );
 
     const result = await TestBed.runInInjectionContext(() =>
-      recipeOwnerGuard(route, {} as any)
+      recipeOwnerGuard(
+        route,
+        {} as unknown as Parameters<typeof recipeOwnerGuard>[1]
+      )
     );
 
     expect(recipeService.getOne).toHaveBeenCalledWith('recipe-1');
@@ -132,7 +144,10 @@ describe('recipeOwnerGuard', () => {
     );
 
     const result = await TestBed.runInInjectionContext(() =>
-      recipeOwnerGuard(route, {} as any)
+      recipeOwnerGuard(
+        route,
+        {} as unknown as Parameters<typeof recipeOwnerGuard>[1]
+      )
     );
 
     expect(recipeService.getOne).toHaveBeenCalledWith('recipe-1');

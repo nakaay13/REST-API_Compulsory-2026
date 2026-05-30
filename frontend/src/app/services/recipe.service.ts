@@ -62,7 +62,7 @@ private getAuthHeaders() {
     // Return cached recipe if available
     if (this.recipeCache.has(id)) {
       console.log('Recipe loaded from cache:', id);
-      return new Observable(observer => {
+      return new Observable<Recipe>(observer => {
         observer.next(this.recipeCache.get(id)!);
         observer.complete();
       });
@@ -99,7 +99,7 @@ private getAuthHeaders() {
     );
   }
 
-  update(id: string, recipe: Recipe): Observable<any> {
+  update(id: string, recipe: Recipe): Observable<unknown> {
     return this.http.put(`${this.apiUrl}/${id}`, recipe, this.getAuthHeaders()).pipe(
       tap(() => {
         this.recipeCache.delete(id);
@@ -108,7 +108,7 @@ private getAuthHeaders() {
     );
   }
 
-  delete(id: string): Observable<any> {
+  delete(id: string): Observable<unknown> {
     return this.http.delete(`${this.apiUrl}/${id}`, this.getAuthHeaders()).pipe(
       tap(() => {
         this.recipeCache.delete(id);

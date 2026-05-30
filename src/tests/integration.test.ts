@@ -5,17 +5,15 @@ import dotenvFlow from 'dotenv-flow';
 import mongoose from 'mongoose';
 import { UserModel } from '../models/userModel';
 import { RecipeModel } from '../models/recipeModel';
-import { startServer } from '../app';
 import routes from '../routes';
 
 dotenvFlow.config();
 
 describe('API Integration Tests', () => {
   let app: express.Application;
-  let server: any;
-  let token: string = '';
-  let userId: string = '';
-  let recipeId: string = '';
+  let token = '';
+  let userId = '';
+  let recipeId = '';
 
   beforeAll(async () => {
     // Set NODE_ENV to test to use DBHOST_TEST

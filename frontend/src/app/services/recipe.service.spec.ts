@@ -11,8 +11,6 @@ describe('RecipeService', () => {
   let service: RecipeService;
   let httpMock: HttpTestingController;
 
-  const baseUrl = '/api/recipes';
-
   beforeEach(() => {
     localStorage.clear();
 

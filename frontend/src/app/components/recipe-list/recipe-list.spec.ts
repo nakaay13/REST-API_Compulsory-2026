@@ -9,7 +9,7 @@ import { AuthService } from '../../services/auth.service';
 
 describe('RecipeListComponent', () => {
   let component: RecipeListComponent;
-  let service: any;
+  let service: { getAll: ReturnType<typeof vi.fn>; delete: ReturnType<typeof vi.fn> };
 
   beforeEach(async () => {
     const recipeSpy = {
@@ -34,7 +34,7 @@ describe('RecipeListComponent', () => {
     const fixture = TestBed.createComponent(RecipeListComponent);
     component = fixture.componentInstance;
 
-    service = TestBed.inject(RecipeService);
+    service = TestBed.inject(RecipeService) as unknown as typeof recipeSpy;
   });
 
   it('should load recipes in ngOnInit', () => {

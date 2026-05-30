@@ -156,7 +156,7 @@ export async function verifyToken(
 
         next();
 
-    } catch (error) {
+    } catch {
 
         res.status(400).json({
             message: "Invalid token."

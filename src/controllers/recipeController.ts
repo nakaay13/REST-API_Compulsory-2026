@@ -1,4 +1,4 @@
-import e, { Request, Response } from "express";
+import { Request, Response } from "express";
 import { RecipeModel } from "../models/recipeModel";
 import { connect, disconnect } from "../repository/database";
 import { AuthRequest } from "../interfaces/authRequest";

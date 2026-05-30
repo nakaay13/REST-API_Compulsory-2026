@@ -8,8 +8,12 @@ import { RecipeService } from '../../services/recipe.service';
 
 describe('RecipeFormComponent', () => {
   let component: RecipeFormComponent;
-  let service: any;
-  let router: any;
+  let service: {
+    create: ReturnType<typeof vi.fn>;
+    update: ReturnType<typeof vi.fn>;
+    getOne: ReturnType<typeof vi.fn>;
+  };
+  let router: { navigate: ReturnType<typeof vi.fn> };
 
   beforeEach(async () => {
     const recipeSpy = {
@@ -43,8 +47,8 @@ describe('RecipeFormComponent', () => {
     const fixture = TestBed.createComponent(RecipeFormComponent);
     component = fixture.componentInstance;
 
-    service = TestBed.inject(RecipeService);
-    router = TestBed.inject(Router);
+    service = TestBed.inject(RecipeService) as unknown as typeof recipeSpy;
+    router = TestBed.inject(Router) as unknown as typeof routerSpy;
   });
 
   it('should create a new recipe and navigate to list', () => {

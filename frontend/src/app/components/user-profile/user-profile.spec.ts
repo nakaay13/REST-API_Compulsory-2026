@@ -8,7 +8,7 @@ import { RecipeService } from '../../services/recipe.service';
 
 describe('UserProfileComponent', () => {
   let component: UserProfileComponent;
-  let service: any;
+  let service: { getRecipesByAuthor: ReturnType<typeof vi.fn> };
 
   beforeEach(async () => {
     const recipeSpy = {
@@ -35,7 +35,7 @@ describe('UserProfileComponent', () => {
 
     component = fixture.componentInstance;
 
-    service = TestBed.inject(RecipeService);
+    service = TestBed.inject(RecipeService) as unknown as typeof recipeSpy;
   });
 
   it('should load user recipes in ngOnInit', () => {
@@ -59,7 +59,7 @@ describe('UserProfileComponent', () => {
     expect(service.getRecipesByAuthor)
       .toHaveBeenCalledWith('123');
 
-    expect(component.recipes)
+    expect(component.recipes())
       .toEqual(fakeRecipes);
   });
 

@@ -7,7 +7,7 @@ import { API_BASE_URL } from './api.config';
 import { Recipe } from './recipe.service';
 
 interface LoginResponse {
-  error: any;
+  error: null | { message: string };
   data: {
     token: string;
     user: {
@@ -32,18 +32,7 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
 login(email: string, password: string) {
-  return this.http.post<{
-    error: any;
-    data: {
-      token: string;
-      user: {
-        id: string;
-        name: string;
-        email: string;
-        isAdmin: boolean;
-      };
-    };
-  }>(`${this.apiUrl}/login`, { email, password }).pipe(
+  return this.http.post<LoginResponse>(`${this.apiUrl}/login`, { email, password }).pipe(
     tap(res => {
       localStorage.setItem('token', res.data.token);
 
