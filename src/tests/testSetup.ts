@@ -32,7 +32,6 @@ export async function createTestApp() {
       }
     } catch (error) {
       // swallow cleanup errors
-      // eslint-disable-next-line no-console
       console.error('Cleanup warning:', error);
     }
   }

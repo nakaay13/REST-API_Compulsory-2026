@@ -1,9 +1,10 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import request from 'supertest';
+import { Application } from 'express';
 import { createTestApp } from './testSetup';
 
 describe('User Registration & Authentication', () => {
-  let app: any;
+  let app: Application;
   let teardown: () => Promise<void>;
 
   beforeAll(async () => {
